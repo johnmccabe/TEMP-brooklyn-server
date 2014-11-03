@@ -16,17 +16,21 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package brooklyn.entity.basic;
+package brooklyn.util.exceptions;
 
-import java.util.Map;
+public class RuntimeTimeoutException extends IllegalStateException {
 
-import brooklyn.entity.Entity;
+    private static final long serialVersionUID = -3359163414517503809L;
 
-/**
- * A Factory for creating entities.
- *
- * @deprecated since 0.7.0; use EntitySpec instead, as the factory does not put the entity through the initialization process */
-@Deprecated
-public interface EntityFactory<T extends Entity> {
-    T newEntity(Map flags, Entity parent);
+    public RuntimeTimeoutException() {
+        super("timeout");
+    }
+    
+    public RuntimeTimeoutException(String message) {
+        super(message);
+    }
+    
+    public RuntimeTimeoutException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
