@@ -18,21 +18,22 @@
  */
 package org.apache.brooklyn.camp.brooklyn.spi.creation.service;
 
+import static org.testng.Assert.assertEquals;
+
 import org.apache.brooklyn.api.entity.EntitySpec;
-import org.apache.brooklyn.camp.spi.PlatformComponentTemplate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.brooklyn.camp.brooklyn.AbstractYamlTest;
+import org.apache.brooklyn.entity.stock.BasicEntity;
+import org.testng.annotations.Test;
 
-/**
- * This converts {@link PlatformComponentTemplate} instances whose type is prefixed {@code java:}
- * to Brooklyn {@link EntitySpec} instances.
- */
-public class JavaServiceTypeResolver extends BrooklynServiceTypeResolver {
 
-    @SuppressWarnings("unused")
-    private static final Logger LOG = LoggerFactory.getLogger(ServiceTypeResolver.class);
-
-    @Override
-    public String getTypePrefix() { return "java"; }
+public class ServiceTypeResolverTest extends AbstractYamlTest {
     
+    @Test
+    public void testAddCatalogItemVerySimple() throws Exception {
+        EntitySpec<?> spec = createAppEntitySpec(
+                "services:",
+                "- type: \"test-resolver:" + BasicEntity.class.getName() + "\"");
+        assertEquals(spec.getChildren().get(0).getFlags().get("resolver"), TestServiceTypeResolver.class);
+    }
+
 }
