@@ -28,11 +28,11 @@
     </parent>
 
     <groupId>org.apache.brooklyn</groupId>
-    <artifactId>brooklyn</artifactId>
+    <artifactId>brooklyn-server</artifactId>
     <version>0.9.1-SNAPSHOT</version>  <!-- BROOKLYN_VERSION -->
     <packaging>pom</packaging>
 
-    <name>Brooklyn Root</name>
+    <name>Brooklyn Server Root</name>
     <description>
         Brooklyn project root, serving as the ancestor POM for all projects --
         declaring versions, profiles, and the modules to build
