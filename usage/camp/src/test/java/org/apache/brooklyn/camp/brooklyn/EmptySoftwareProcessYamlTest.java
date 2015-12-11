@@ -16,87 +16,87 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.brooklyn.camp.brooklyn;
+// package org.apache.brooklyn.camp.brooklyn;
 
-import java.util.Iterator;
-import java.util.Map;
+// import java.util.Iterator;
+// import java.util.Map;
 
-import org.apache.brooklyn.api.entity.Entity;
-import org.apache.brooklyn.api.location.Location;
-import org.apache.brooklyn.core.entity.Entities;
-import org.apache.brooklyn.entity.software.base.EmptySoftwareProcess;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.annotations.Test;
-import org.apache.brooklyn.location.ssh.SshMachineLocation;
-import org.apache.brooklyn.util.collections.Jsonya;
+// import org.apache.brooklyn.api.entity.Entity;
+// import org.apache.brooklyn.api.location.Location;
+// import org.apache.brooklyn.core.entity.Entities;
+// import org.apache.brooklyn.entity.software.base.EmptySoftwareProcess;
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
+// import org.testng.Assert;
+// import org.testng.annotations.Test;
+// import org.apache.brooklyn.location.ssh.SshMachineLocation;
+// import org.apache.brooklyn.util.collections.Jsonya;
 
-@Test
-public class EmptySoftwareProcessYamlTest extends AbstractYamlTest {
-    private static final Logger log = LoggerFactory.getLogger(EnrichersYamlTest.class);
+// @Test
+// public class EmptySoftwareProcessYamlTest extends AbstractYamlTest {
+//     private static final Logger log = LoggerFactory.getLogger(EnrichersYamlTest.class);
 
-    @Test(groups="Integration")
-    public void testProvisioningProperties() throws Exception {
-        Entity app = createAndStartApplication(
-            "location: localhost",
-            "services:",
-            "- type: "+EmptySoftwareProcess.class.getName(),
-            "  provisioning.properties:",
-            "    minRam: 16384");
-        waitForApplicationTasks(app);
+//     @Test(groups="Integration")
+//     public void testProvisioningProperties() throws Exception {
+//         Entity app = createAndStartApplication(
+//             "location: localhost",
+//             "services:",
+//             "- type: "+EmptySoftwareProcess.class.getName(),
+//             "  provisioning.properties:",
+//             "    minRam: 16384");
+//         waitForApplicationTasks(app);
 
-        log.info("App started:");
-        Entities.dumpInfo(app);
+//         log.info("App started:");
+//         Entities.dumpInfo(app);
         
-        EmptySoftwareProcess entity = (EmptySoftwareProcess) app.getChildren().iterator().next();
-        Map<String, Object> pp = entity.getConfig(EmptySoftwareProcess.PROVISIONING_PROPERTIES);
-        Assert.assertEquals(pp.get("minRam"), 16384);
-    }
+//         EmptySoftwareProcess entity = (EmptySoftwareProcess) app.getChildren().iterator().next();
+//         Map<String, Object> pp = entity.getConfig(EmptySoftwareProcess.PROVISIONING_PROPERTIES);
+//         Assert.assertEquals(pp.get("minRam"), 16384);
+//     }
 
-    @Test(groups="Integration")
-    public void testProvisioningPropertiesViaJsonya() throws Exception {
-        Entity app = createAndStartApplication(
-            Jsonya.newInstance()
-                .put("location", "localhost")
-                .at("services").list()
-                .put("type", EmptySoftwareProcess.class.getName())
-                .at("provisioning.properties").put("minRam", 16384)
-                .root().toString());
-        waitForApplicationTasks(app);
+//     @Test(groups="Integration")
+//     public void testProvisioningPropertiesViaJsonya() throws Exception {
+//         Entity app = createAndStartApplication(
+//             Jsonya.newInstance()
+//                 .put("location", "localhost")
+//                 .at("services").list()
+//                 .put("type", EmptySoftwareProcess.class.getName())
+//                 .at("provisioning.properties").put("minRam", 16384)
+//                 .root().toString());
+//         waitForApplicationTasks(app);
 
-        log.info("App started:");
-        Entities.dumpInfo(app);
+//         log.info("App started:");
+//         Entities.dumpInfo(app);
         
-        EmptySoftwareProcess entity = (EmptySoftwareProcess) app.getChildren().iterator().next();
-        Map<String, Object> pp = entity.getConfig(EmptySoftwareProcess.PROVISIONING_PROPERTIES);
-        Assert.assertEquals(pp.get("minRam"), 16384);
-    }
+//         EmptySoftwareProcess entity = (EmptySoftwareProcess) app.getChildren().iterator().next();
+//         Map<String, Object> pp = entity.getConfig(EmptySoftwareProcess.PROVISIONING_PROPERTIES);
+//         Assert.assertEquals(pp.get("minRam"), 16384);
+//     }
 
-    // for https://github.com/brooklyncentral/brooklyn/issues/1377
-    @Test(groups="Integration")
-    public void testWithAppAndEntityLocations() throws Exception {
-        Entity app = createAndStartApplication(
-                "services:",
-                "- type: "+EmptySoftwareProcess.class.getName(),
-                "  location: localhost:(name=localhost on entity)",
-                "location: byon:(hosts=\"127.0.0.1\", name=loopback on app)");
-        waitForApplicationTasks(app);
-        Entities.dumpInfo(app);
+//     // for https://github.com/brooklyncentral/brooklyn/issues/1377
+//     @Test(groups="Integration")
+//     public void testWithAppAndEntityLocations() throws Exception {
+//         Entity app = createAndStartApplication(
+//                 "services:",
+//                 "- type: "+EmptySoftwareProcess.class.getName(),
+//                 "  location: localhost:(name=localhost on entity)",
+//                 "location: byon:(hosts=\"127.0.0.1\", name=loopback on app)");
+//         waitForApplicationTasks(app);
+//         Entities.dumpInfo(app);
         
-        Assert.assertEquals(app.getLocations().size(), 1);
-        Assert.assertEquals(app.getChildren().size(), 1);
-        Entity entity = app.getChildren().iterator().next();
+//         Assert.assertEquals(app.getLocations().size(), 1);
+//         Assert.assertEquals(app.getChildren().size(), 1);
+//         Entity entity = app.getChildren().iterator().next();
         
-        Location appLocation = app.getLocations().iterator().next();
-        Assert.assertEquals(appLocation.getDisplayName(), "loopback on app");
+//         Location appLocation = app.getLocations().iterator().next();
+//         Assert.assertEquals(appLocation.getDisplayName(), "loopback on app");
         
-        Assert.assertEquals(entity.getLocations().size(), 2);
-        Iterator<Location> entityLocationIterator = entity.getLocations().iterator();
-        Assert.assertEquals(entityLocationIterator.next().getDisplayName(), "localhost on entity");
-        Location actualMachine = entityLocationIterator.next();
-        Assert.assertTrue(actualMachine instanceof SshMachineLocation, "wrong location: "+actualMachine);
-        // TODO this, below, probably should be 'localhost on entity', see #1377
-        Assert.assertEquals(actualMachine.getParent().getDisplayName(), "loopback on app");
-    }
-}
+//         Assert.assertEquals(entity.getLocations().size(), 2);
+//         Iterator<Location> entityLocationIterator = entity.getLocations().iterator();
+//         Assert.assertEquals(entityLocationIterator.next().getDisplayName(), "localhost on entity");
+//         Location actualMachine = entityLocationIterator.next();
+//         Assert.assertTrue(actualMachine instanceof SshMachineLocation, "wrong location: "+actualMachine);
+//         // TODO this, below, probably should be 'localhost on entity', see #1377
+//         Assert.assertEquals(actualMachine.getParent().getDisplayName(), "loopback on app");
+//     }
+// }

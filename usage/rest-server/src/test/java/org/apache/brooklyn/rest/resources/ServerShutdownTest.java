@@ -16,170 +16,170 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.brooklyn.rest.resources;
+// package org.apache.brooklyn.rest.resources;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertNull;
-import static org.testng.Assert.assertTrue;
+// import static org.testng.Assert.assertEquals;
+// import static org.testng.Assert.assertFalse;
+// import static org.testng.Assert.assertNull;
+// import static org.testng.Assert.assertTrue;
 
-import java.util.concurrent.atomic.AtomicReference;
+// import java.util.concurrent.atomic.AtomicReference;
 
-import javax.ws.rs.core.MultivaluedMap;
+// import javax.ws.rs.core.MultivaluedMap;
 
-import org.apache.brooklyn.api.entity.EntitySpec;
-import org.apache.brooklyn.api.mgmt.EntityManager;
-import org.apache.brooklyn.api.mgmt.Task;
-import org.apache.brooklyn.core.entity.Attributes;
-import org.apache.brooklyn.core.entity.EntityAsserts;
-import org.apache.brooklyn.core.entity.drivers.BasicEntityDriverManager;
-import org.apache.brooklyn.core.entity.drivers.ReflectiveEntityDriverFactory;
-import org.apache.brooklyn.core.entity.lifecycle.Lifecycle;
-import org.apache.brooklyn.core.entity.trait.Startable;
-import org.apache.brooklyn.core.test.entity.TestApplication;
-import org.apache.brooklyn.rest.resources.ServerResourceTest.StopLatchEntity;
-import org.apache.brooklyn.rest.testing.BrooklynRestResourceTest;
-import org.apache.brooklyn.test.Asserts;
-import org.apache.brooklyn.util.exceptions.Exceptions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+// import org.apache.brooklyn.api.entity.EntitySpec;
+// import org.apache.brooklyn.api.mgmt.EntityManager;
+// import org.apache.brooklyn.api.mgmt.Task;
+// import org.apache.brooklyn.core.entity.Attributes;
+// import org.apache.brooklyn.core.entity.EntityAsserts;
+// import org.apache.brooklyn.core.entity.drivers.BasicEntityDriverManager;
+// import org.apache.brooklyn.core.entity.drivers.ReflectiveEntityDriverFactory;
+// import org.apache.brooklyn.core.entity.lifecycle.Lifecycle;
+// import org.apache.brooklyn.core.entity.trait.Startable;
+// import org.apache.brooklyn.core.test.entity.TestApplication;
+// import org.apache.brooklyn.rest.resources.ServerResourceTest.StopLatchEntity;
+// import org.apache.brooklyn.rest.testing.BrooklynRestResourceTest;
+// import org.apache.brooklyn.test.Asserts;
+// import org.apache.brooklyn.util.exceptions.Exceptions;
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
+// import org.testng.annotations.AfterClass;
+// import org.testng.annotations.AfterMethod;
+// import org.testng.annotations.BeforeClass;
+// import org.testng.annotations.BeforeMethod;
+// import org.testng.annotations.Test;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
+// import com.google.common.collect.ImmutableMap;
+// import com.google.common.collect.ImmutableSet;
+// import com.sun.jersey.core.util.MultivaluedMapImpl;
 
-public class ServerShutdownTest extends BrooklynRestResourceTest {
-    private static final Logger log = LoggerFactory.getLogger(ServerResourceTest.class);
+// public class ServerShutdownTest extends BrooklynRestResourceTest {
+//     private static final Logger log = LoggerFactory.getLogger(ServerResourceTest.class);
 
-    // Need to initialise the ManagementContext before each test as it is destroyed.
-    @Override
-    @BeforeClass(alwaysRun = true)
-    public void setUp() throws Exception {
-    }
+//     // Need to initialise the ManagementContext before each test as it is destroyed.
+//     @Override
+//     @BeforeClass(alwaysRun = true)
+//     public void setUp() throws Exception {
+//     }
 
-    @Override
-    @AfterClass(alwaysRun = true)
-    public void tearDown() throws Exception {
-    }
+//     @Override
+//     @AfterClass(alwaysRun = true)
+//     public void tearDown() throws Exception {
+//     }
 
-    @Override
-    @BeforeMethod(alwaysRun = true)
-    public void setUpMethod() {
-        setUpJersey();
-        super.setUpMethod();
-    }
+//     @Override
+//     @BeforeMethod(alwaysRun = true)
+//     public void setUpMethod() {
+//         setUpJersey();
+//         super.setUpMethod();
+//     }
 
-    @AfterMethod(alwaysRun = true)
-    public void tearDownMethod() {
-        tearDownJersey();
-        destroyManagementContext();
-    }
+//     @AfterMethod(alwaysRun = true)
+//     public void tearDownMethod() {
+//         tearDownJersey();
+//         destroyManagementContext();
+//     }
 
-    @Test
-    public void testShutdown() throws Exception {
-        assertTrue(getManagementContext().isRunning());
-        assertFalse(shutdownListener.isRequested());
+//     @Test
+//     public void testShutdown() throws Exception {
+//         assertTrue(getManagementContext().isRunning());
+//         assertFalse(shutdownListener.isRequested());
 
-        MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
-        formData.add("requestTimeout", "0");
-        formData.add("delayForHttpReturn", "0");
-        client().resource("/v1/server/shutdown").entity(formData).post();
+//         MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
+//         formData.add("requestTimeout", "0");
+//         formData.add("delayForHttpReturn", "0");
+//         client().resource("/v1/server/shutdown").entity(formData).post();
 
-        Asserts.succeedsEventually(new Runnable() {
-            @Override
-            public void run() {
-                assertTrue(shutdownListener.isRequested());
-            }
-        });
-        Asserts.succeedsEventually(new Runnable() {
-            @Override public void run() {
-                assertFalse(getManagementContext().isRunning());
-            }});
-    }
+//         Asserts.succeedsEventually(new Runnable() {
+//             @Override
+//             public void run() {
+//                 assertTrue(shutdownListener.isRequested());
+//             }
+//         });
+//         Asserts.succeedsEventually(new Runnable() {
+//             @Override public void run() {
+//                 assertFalse(getManagementContext().isRunning());
+//             }});
+//     }
 
-    @Test
-    public void testStopAppThenShutdownAndStopAppsWaitsForFirstStop() throws InterruptedException {
-        ReflectiveEntityDriverFactory f = ((BasicEntityDriverManager)getManagementContext().getEntityDriverManager()).getReflectiveDriverFactory();
-        f.addClassFullNameMapping("org.apache.brooklyn.entity.software.base.EmptySoftwareProcessDriver", "org.apache.brooklyn.rest.resources.ServerResourceTest$EmptySoftwareProcessTestDriver");
+//     @Test
+//     public void testStopAppThenShutdownAndStopAppsWaitsForFirstStop() throws InterruptedException {
+//         ReflectiveEntityDriverFactory f = ((BasicEntityDriverManager)getManagementContext().getEntityDriverManager()).getReflectiveDriverFactory();
+//         f.addClassFullNameMapping("org.apache.brooklyn.entity.software.base.EmptySoftwareProcessDriver", "org.apache.brooklyn.rest.resources.ServerResourceTest$EmptySoftwareProcessTestDriver");
 
-        // Second stop on SoftwareProcess could return early, while the first stop is still in progress
-        // This causes the app to shutdown prematurely, leaking machines.
-        EntityManager emgr = getManagementContext().getEntityManager();
-        EntitySpec<TestApplication> appSpec = EntitySpec.create(TestApplication.class);
-        TestApplication app = emgr.createEntity(appSpec);
-        emgr.manage(app);
-        EntitySpec<StopLatchEntity> latchEntitySpec = EntitySpec.create(StopLatchEntity.class);
-        final StopLatchEntity entity = app.createAndManageChild(latchEntitySpec);
-        app.start(ImmutableSet.of(app.newLocalhostProvisioningLocation()));
-        EntityAsserts.assertAttributeEquals(entity, Attributes.SERVICE_STATE_ACTUAL, Lifecycle.RUNNING);
+//         // Second stop on SoftwareProcess could return early, while the first stop is still in progress
+//         // This causes the app to shutdown prematurely, leaking machines.
+//         EntityManager emgr = getManagementContext().getEntityManager();
+//         EntitySpec<TestApplication> appSpec = EntitySpec.create(TestApplication.class);
+//         TestApplication app = emgr.createEntity(appSpec);
+//         emgr.manage(app);
+//         EntitySpec<StopLatchEntity> latchEntitySpec = EntitySpec.create(StopLatchEntity.class);
+//         final StopLatchEntity entity = app.createAndManageChild(latchEntitySpec);
+//         app.start(ImmutableSet.of(app.newLocalhostProvisioningLocation()));
+//         EntityAsserts.assertAttributeEquals(entity, Attributes.SERVICE_STATE_ACTUAL, Lifecycle.RUNNING);
 
-        try {
-            final Task<Void> firstStop = app.invoke(Startable.STOP, ImmutableMap.<String, Object>of());
-            Asserts.succeedsEventually(new Runnable() {
-                @Override
-                public void run() {
-                    assertTrue(entity.isBlocked());
-                }
-            });
+//         try {
+//             final Task<Void> firstStop = app.invoke(Startable.STOP, ImmutableMap.<String, Object>of());
+//             Asserts.succeedsEventually(new Runnable() {
+//                 @Override
+//                 public void run() {
+//                     assertTrue(entity.isBlocked());
+//                 }
+//             });
 
-            final AtomicReference<Exception> shutdownError = new AtomicReference<>();
-            // Can't use ExecutionContext as it will be stopped on shutdown
-            Thread shutdownThread = new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
-                        formData.add("stopAppsFirst", "true");
-                        formData.add("shutdownTimeout", "0");
-                        formData.add("requestTimeout", "0");
-                        formData.add("delayForHttpReturn", "0");
-                        client().resource("/v1/server/shutdown").entity(formData).post();
-                    } catch (Exception e) {
-                        log.error("Shutdown request error", e);
-                        shutdownError.set(e);
-                        throw Exceptions.propagate(e);
-                    }
-                }
-            };
-            shutdownThread.start();
+//             final AtomicReference<Exception> shutdownError = new AtomicReference<>();
+//             // Can't use ExecutionContext as it will be stopped on shutdown
+//             Thread shutdownThread = new Thread() {
+//                 @Override
+//                 public void run() {
+//                     try {
+//                         MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
+//                         formData.add("stopAppsFirst", "true");
+//                         formData.add("shutdownTimeout", "0");
+//                         formData.add("requestTimeout", "0");
+//                         formData.add("delayForHttpReturn", "0");
+//                         client().resource("/v1/server/shutdown").entity(formData).post();
+//                     } catch (Exception e) {
+//                         log.error("Shutdown request error", e);
+//                         shutdownError.set(e);
+//                         throw Exceptions.propagate(e);
+//                     }
+//                 }
+//             };
+//             shutdownThread.start();
 
-            //shutdown must wait until the first stop completes (or time out)
-            Asserts.succeedsContinually(new Runnable() {
-                @Override
-                public void run() {
-                    assertFalse(firstStop.isDone());
-                    assertEquals(getManagementContext().getApplications().size(), 1);
-                    assertFalse(shutdownListener.isRequested());
-                }
-            });
+//             //shutdown must wait until the first stop completes (or time out)
+//             Asserts.succeedsContinually(new Runnable() {
+//                 @Override
+//                 public void run() {
+//                     assertFalse(firstStop.isDone());
+//                     assertEquals(getManagementContext().getApplications().size(), 1);
+//                     assertFalse(shutdownListener.isRequested());
+//                 }
+//             });
 
-            // NOTE test is not fully deterministic. Depending on thread scheduling this will
-            // execute before or after ServerResource.shutdown does the app stop loop. This
-            // means that the shutdown code might not see the app at all. In any case though
-            // the test must succeed.
-            entity.unblock();
+//             // NOTE test is not fully deterministic. Depending on thread scheduling this will
+//             // execute before or after ServerResource.shutdown does the app stop loop. This
+//             // means that the shutdown code might not see the app at all. In any case though
+//             // the test must succeed.
+//             entity.unblock();
 
-            Asserts.succeedsEventually(new Runnable() {
-                @Override
-                public void run() {
-                    assertTrue(firstStop.isDone());
-                    assertTrue(shutdownListener.isRequested());
-                    assertFalse(getManagementContext().isRunning());
-                }
-            });
+//             Asserts.succeedsEventually(new Runnable() {
+//                 @Override
+//                 public void run() {
+//                     assertTrue(firstStop.isDone());
+//                     assertTrue(shutdownListener.isRequested());
+//                     assertFalse(getManagementContext().isRunning());
+//                 }
+//             });
 
-            shutdownThread.join();
-            assertNull(shutdownError.get(), "Shutdown request error, logged above");
-        } finally {
-            // Be sure we always unblock entity stop even in the case of an exception.
-            // In the success path the entity is already unblocked above.
-            entity.unblock();
-        }
-    }
+//             shutdownThread.join();
+//             assertNull(shutdownError.get(), "Shutdown request error, logged above");
+//         } finally {
+//             // Be sure we always unblock entity stop even in the case of an exception.
+//             // In the success path the entity is already unblocked above.
+//             entity.unblock();
+//         }
+//     }
 
-}
+// }

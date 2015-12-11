@@ -29,7 +29,7 @@
     <parent>
         <groupId>org.apache.brooklyn</groupId>
         <artifactId>brooklyn-parent</artifactId>
-        <version>0.9.0-SNAPSHOT</version><!-- BROOKLYN_VERSION -->
+        <version>0.9.1-SNAPSHOT</version><!-- BROOKLYN_VERSION -->
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
@@ -96,11 +96,11 @@
 
         <!-- TODO not enamoured of including software-base here, but it allows us to reference chef and vanilla for short names;
              ideally there is a mixin strategy by which they can be discovered (eg using java service discovery) -->
-        <dependency>
+<!--         <dependency>
             <groupId>org.apache.brooklyn</groupId>
             <artifactId>brooklyn-software-base</artifactId>
             <version>${project.version}</version>
-        </dependency>
+        </dependency> -->
 
         <dependency>
             <groupId>org.apache.brooklyn</groupId>
@@ -132,7 +132,7 @@
             <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>
-        <dependency>
+<!--         <dependency>
             <groupId>org.apache.brooklyn</groupId>
             <artifactId>brooklyn-software-base</artifactId>
             <version>${project.version}</version>
@@ -156,7 +156,7 @@
             <artifactId>brooklyn-software-nosql</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.apache.brooklyn</groupId>
             <artifactId>brooklyn-locations-jclouds</artifactId>

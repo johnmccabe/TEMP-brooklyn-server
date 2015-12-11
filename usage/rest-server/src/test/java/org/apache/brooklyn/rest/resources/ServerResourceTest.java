@@ -29,9 +29,9 @@ import org.apache.brooklyn.api.mgmt.ManagementContext;
 import org.apache.brooklyn.core.BrooklynVersion;
 import org.apache.brooklyn.core.internal.BrooklynProperties;
 import org.apache.brooklyn.core.mgmt.internal.ManagementContextInternal;
-import org.apache.brooklyn.entity.software.base.EmptySoftwareProcess;
-import org.apache.brooklyn.entity.software.base.EmptySoftwareProcessDriver;
-import org.apache.brooklyn.entity.software.base.EmptySoftwareProcessImpl;
+// import org.apache.brooklyn.entity.software.base.EmptySoftwareProcess;
+// import org.apache.brooklyn.entity.software.base.EmptySoftwareProcessDriver;
+// import org.apache.brooklyn.entity.software.base.EmptySoftwareProcessImpl;
 import org.apache.brooklyn.rest.domain.HighAvailabilitySummary;
 import org.apache.brooklyn.rest.domain.VersionSummary;
 import org.apache.brooklyn.rest.testing.BrooklynRestResourceTest;
@@ -125,44 +125,44 @@ public class ServerResourceTest extends BrooklynRestResourceTest {
         }
     }
 
-    // Alternatively could reuse a blocking location, see org.apache.brooklyn.entity.software.base.SoftwareProcessEntityTest.ReleaseLatchLocation
-    @ImplementedBy(StopLatchEntityImpl.class)
-    public interface StopLatchEntity extends EmptySoftwareProcess {
-        public void unblock();
-        public boolean isBlocked();
-    }
+    // // Alternatively could reuse a blocking location, see org.apache.brooklyn.entity.software.base.SoftwareProcessEntityTest.ReleaseLatchLocation
+    // @ImplementedBy(StopLatchEntityImpl.class)
+    // public interface StopLatchEntity extends EmptySoftwareProcess {
+    //     public void unblock();
+    //     public boolean isBlocked();
+    // }
 
-    public static class StopLatchEntityImpl extends EmptySoftwareProcessImpl implements StopLatchEntity {
-        private CountDownLatch lock = new CountDownLatch(1);
-        private volatile boolean isBlocked;
+    // public static class StopLatchEntityImpl extends EmptySoftwareProcessImpl implements StopLatchEntity {
+    //     private CountDownLatch lock = new CountDownLatch(1);
+    //     private volatile boolean isBlocked;
 
-        @Override
-        public void unblock() {
-            lock.countDown();
-        }
+    //     @Override
+    //     public void unblock() {
+    //         lock.countDown();
+    //     }
 
-        @Override
-        protected void postStop() {
-            super.preStop();
-            try {
-                isBlocked = true;
-                lock.await();
-                isBlocked = false;
-            } catch (InterruptedException e) {
-                throw Exceptions.propagate(e);
-            }
-        }
+    //     @Override
+    //     protected void postStop() {
+    //         super.preStop();
+    //         try {
+    //             isBlocked = true;
+    //             lock.await();
+    //             isBlocked = false;
+    //         } catch (InterruptedException e) {
+    //             throw Exceptions.propagate(e);
+    //         }
+    //     }
 
-        @Override
-        public Class<?> getDriverInterface() {
-            return EmptySoftwareProcessDriver.class;
-        }
+    //     @Override
+    //     public Class<?> getDriverInterface() {
+    //         return EmptySoftwareProcessDriver.class;
+    //     }
 
-        @Override
-        public boolean isBlocked() {
-            return isBlocked;
-        }
+    //     @Override
+    //     public boolean isBlocked() {
+    //         return isBlocked;
+    //     }
 
-    }
+    // }
 
 }

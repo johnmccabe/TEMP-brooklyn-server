@@ -33,7 +33,7 @@ import org.apache.brooklyn.core.location.LocationPredicates;
 import org.apache.brooklyn.core.location.Machines;
 import org.apache.brooklyn.core.location.access.PortForwardManager;
 import org.apache.brooklyn.core.location.cloud.CloudLocationConfig;
-import org.apache.brooklyn.entity.software.base.DoNothingSoftwareProcess;
+// import org.apache.brooklyn.entity.software.base.DoNothingSoftwareProcess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
@@ -224,35 +224,35 @@ public class ByonLocationsYamlTest extends AbstractYamlTest {
         assertNull(pfm.lookup(machine2, 12345));
     }
 
-    @Test
-    @SuppressWarnings("unchecked")
-    public void testPassesInboundPortsToMachineAndRemovesOnceMachineReleased() throws Exception {
-        String yaml = Joiner.on("\n").join(
-                "location:",
-                "  byon:",
-                "    hosts:",
-                "    - ssh: 1.1.1.1:22",
-                "      password: mypassword",
-                "      user: myuser",
-                "services:",
-                "- type: org.apache.brooklyn.entity.software.base.DoNothingSoftwareProcess",
-                "  brooklyn.config:",
-                "    requiredOpenLoginPorts: [22, 1024]");
+    // @Test
+    // @SuppressWarnings("unchecked")
+    // public void testPassesInboundPortsToMachineAndRemovesOnceMachineReleased() throws Exception {
+    //     String yaml = Joiner.on("\n").join(
+    //             "location:",
+    //             "  byon:",
+    //             "    hosts:",
+    //             "    - ssh: 1.1.1.1:22",
+    //             "      password: mypassword",
+    //             "      user: myuser",
+    //             "services:",
+    //             "- type: org.apache.brooklyn.entity.software.base.DoNothingSoftwareProcess",
+    //             "  brooklyn.config:",
+    //             "    requiredOpenLoginPorts: [22, 1024]");
 
-        Entity app = createStartWaitAndLogApplication(new StringReader(yaml));
-        DoNothingSoftwareProcess entity = (DoNothingSoftwareProcess) Iterables.find(Entities.descendants(app), Predicates.instanceOf(DoNothingSoftwareProcess.class));
-        FixedListMachineProvisioningLocation<MachineLocation> loc = (FixedListMachineProvisioningLocation<MachineLocation>) Iterables.get(app.getLocations(), 0);
+    //     Entity app = createStartWaitAndLogApplication(new StringReader(yaml));
+    //     DoNothingSoftwareProcess entity = (DoNothingSoftwareProcess) Iterables.find(Entities.descendants(app), Predicates.instanceOf(DoNothingSoftwareProcess.class));
+    //     FixedListMachineProvisioningLocation<MachineLocation> loc = (FixedListMachineProvisioningLocation<MachineLocation>) Iterables.get(app.getLocations(), 0);
         
-        // Machine should have been given the inbound-ports
-        SshMachineLocation machine = Machines.findUniqueMachineLocation(entity.getLocations(), SshMachineLocation.class).get();
-        Asserts.assertEqualsIgnoringOrder((Iterable<?>)machine.config().get(CloudLocationConfig.INBOUND_PORTS), ImmutableList.of(22, 1024));
+    //     // Machine should have been given the inbound-ports
+    //     SshMachineLocation machine = Machines.findUniqueMachineLocation(entity.getLocations(), SshMachineLocation.class).get();
+    //     Asserts.assertEqualsIgnoringOrder((Iterable<?>)machine.config().get(CloudLocationConfig.INBOUND_PORTS), ImmutableList.of(22, 1024));
         
-        // Stop the entity; should release the machine
-        entity.stop();
-        MachineLocation availableMachine = Iterables.getOnlyElement(loc.getAvailable());
-        assertEquals(availableMachine, machine);
-        assertNull(machine.config().get(CloudLocationConfig.INBOUND_PORTS));
-    }
+    //     // Stop the entity; should release the machine
+    //     entity.stop();
+    //     MachineLocation availableMachine = Iterables.getOnlyElement(loc.getAvailable());
+    //     assertEquals(availableMachine, machine);
+    //     assertNull(machine.config().get(CloudLocationConfig.INBOUND_PORTS));
+    // }
 
     private void assertMachine(SshMachineLocation machine, UserAndHostAndPort conn, Map<String, ?> config) {
         assertEquals(machine.getAddress().getHostAddress(), conn.getHostAndPort().getHostText());

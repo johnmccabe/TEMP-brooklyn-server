@@ -29,7 +29,7 @@
 
     <groupId>org.apache.brooklyn</groupId>
     <artifactId>brooklyn</artifactId>
-    <version>0.9.0-SNAPSHOT</version>  <!-- BROOKLYN_VERSION -->
+    <version>0.9.1-SNAPSHOT</version>  <!-- BROOKLYN_VERSION -->
     <packaging>pom</packaging>
 
     <name>Brooklyn Root</name>
@@ -72,7 +72,7 @@
     </mailingLists>
 
     <properties>
-        <brooklyn.version>0.9.0-SNAPSHOT</brooklyn.version>  <!-- BROOKLYN_VERSION -->
+        <brooklyn.version>0.9.1-SNAPSHOT</brooklyn.version>  <!-- BROOKLYN_VERSION -->
 
         <!-- Compilation -->
         <java.version>1.7</java.version>
@@ -197,16 +197,16 @@
 
     <modules>
         <module>parent</module>
-        <module>usage/downstream-parent</module>
+        <!-- <module>usage/downstream-parent</module> -->
 
         <module>api</module>
         <module>camp</module>
         <module>core</module>
-        <module>examples</module>
+        <!-- <module>examples</module> -->
         <module>policy</module>
 
         <module>locations/jclouds</module>
-        <module>karaf</module>
+        <!-- <module>karaf</module> -->
 
         <!-- module>sandbox/cassandra-multicloud-snitch</module -->
         <!-- module>sandbox/database</module -->
@@ -218,27 +218,28 @@
         <!-- module>sandbox/web-acceptance</module -->
 
         <module>software/base</module>
-        <module>software/network</module>
-        <module>software/osgi</module>
-        <module>software/webapp</module>
-        <module>software/messaging</module>
-        <module>software/nosql</module>
-        <module>software/database</module>
-        <module>software/monitoring</module>
+        <!-- <module>software/network</module> -->
+        <!-- <module>software/osgi</module> -->
+        <!-- <module>software/webapp</module> -->
+        <!-- <module>software/messaging</module> -->
+        <!-- <module>software/nosql</module> -->
+        <!-- <module>software/database</module> -->
+        <!-- <module>software/monitoring</module> -->
         <module>software/winrm</module>
 
         <module>storage/hazelcast</module>
 
-        <module>usage/all</module>
-        <module>usage/archetypes/quickstart</module>
+        <!-- <module>usage/all</module> -->
+        <module>usage/server-all</module>
+        <!-- <module>usage/archetypes/quickstart</module> -->
         <module>usage/camp</module>
         <module>usage/cli</module>
-        <module>usage/dist</module>
-        <module>usage/jsgui</module>
+        <!-- <module>usage/dist</module> -->
+        <!-- <module>usage/jsgui</module> -->
         <module>usage/launcher</module>
         <module>usage/logback-includes</module>
         <module>usage/logback-xml</module>
-        <module>usage/qa</module>
+        <!-- <module>usage/qa</module> -->
         <module>usage/rest-api</module>
         <module>usage/rest-client</module>
         <module>usage/rest-server</module>

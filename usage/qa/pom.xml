@@ -29,25 +29,34 @@
     <parent>
         <groupId>org.apache.brooklyn</groupId>
         <artifactId>brooklyn-parent</artifactId>
-        <version>0.9.0-SNAPSHOT</version>  <!-- BROOKLYN_VERSION -->
+        <version>0.9.1-SNAPSHOT</version>  <!-- BROOKLYN_VERSION -->
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
     <dependencies>
-        <dependency>
+<!--         <dependency>
             <groupId>org.apache.brooklyn</groupId>
             <artifactId>brooklyn-all</artifactId>
             <version>${project.version}</version>
-        </dependency>
+        </dependency> -->
 
-        <dependency>
+<!--         <dependency>
             <groupId>org.apache.brooklyn</groupId>
             <artifactId>brooklyn-dist</artifactId>
             <classifier>dist</classifier>
             <type>tar.gz</type>
             <version>${project.version}</version>
+        </dependency> -->
+        <dependency>
+            <groupId>org.apache.brooklyn</groupId>
+            <artifactId>brooklyn-api</artifactId>
+            <version>${project.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.brooklyn</groupId>
+            <artifactId>brooklyn-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>net.sf.jopt-simple</groupId>
             <artifactId>jopt-simple</artifactId>
@@ -97,7 +106,7 @@
                             </goals>
                             <configuration>
                                 <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                                <excludeArtifactIds>brooklyn-dist</excludeArtifactIds>
+<!--                                 <excludeArtifactIds>brooklyn-dist</excludeArtifactIds> -->
                             </configuration>
                         </execution>
                     </executions>

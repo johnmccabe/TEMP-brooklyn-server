@@ -16,24 +16,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.brooklyn.rest.testing.mocks;
+// package org.apache.brooklyn.rest.testing.mocks;
 
-import org.apache.brooklyn.api.entity.Entity;
-import org.apache.brooklyn.api.entity.EntitySpec;
-import org.apache.brooklyn.core.entity.StartableApplication;
-import org.apache.brooklyn.core.entity.factory.ApplicationBuilder;
-import org.apache.brooklyn.util.javalang.Reflections;
+// import org.apache.brooklyn.api.entity.Entity;
+// import org.apache.brooklyn.api.entity.EntitySpec;
+// import org.apache.brooklyn.core.entity.StartableApplication;
+// import org.apache.brooklyn.core.entity.factory.ApplicationBuilder;
+// import org.apache.brooklyn.util.javalang.Reflections;
 
-public class RestMockAppBuilder extends ApplicationBuilder {
+// public class RestMockAppBuilder extends ApplicationBuilder {
 
-    public RestMockAppBuilder() {
-        super(EntitySpec.create(StartableApplication.class).impl(RestMockApp.class));
-    }
+//     public RestMockAppBuilder() {
+//         super(EntitySpec.create(StartableApplication.class).impl(RestMockApp.class));
+//     }
     
-    @Override
-    protected void doBuild() {
-        addChild(EntitySpec.create(Entity.class).impl(RestMockSimpleEntity.class)
-            .additionalInterfaces(Reflections.getAllInterfaces(RestMockSimpleEntity.class))
-            .displayName("child1"));
-    }
-}
+//     @Override
+//     protected void doBuild() {
+//         addChild(EntitySpec.create(Entity.class).impl(RestMockSimpleEntity.class)
+//             .additionalInterfaces(Reflections.getAllInterfaces(RestMockSimpleEntity.class))
+//             .displayName("child1"));
+//     }
+// }

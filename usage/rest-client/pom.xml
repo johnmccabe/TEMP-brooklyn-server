@@ -29,7 +29,7 @@
     <parent>
         <groupId>org.apache.brooklyn</groupId>
         <artifactId>brooklyn-parent</artifactId>
-        <version>0.9.0-SNAPSHOT</version> <!-- BROOKLYN_VERSION -->
+        <version>0.9.1-SNAPSHOT</version> <!-- BROOKLYN_VERSION -->
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
@@ -145,12 +145,12 @@
             <scope>test</scope>
         </dependency>
         <!-- Used in ApplicationResourceIntegrationTest -->
-        <dependency>
+<!--         <dependency>
             <groupId>org.apache.brooklyn</groupId>
             <artifactId>brooklyn-software-nosql</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
-        </dependency>
+        </dependency> -->
     </dependencies>
     
 </project>

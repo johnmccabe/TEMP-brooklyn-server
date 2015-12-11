@@ -29,11 +29,17 @@
   <parent>
     <groupId>org.apache.brooklyn</groupId>
     <artifactId>brooklyn-karaf</artifactId>
-    <version>0.9.0-SNAPSHOT</version>  <!-- BROOKLYN_VERSION -->
+    <version>0.9.1-SNAPSHOT</version>  <!-- BROOKLYN_VERSION -->
     <relativePath>../pom.xml</relativePath>
   </parent>
 
   <dependencies>
+<!--     <dependency>
+        <groupId>org.apache.brooklyn</groupId>
+        <artifactId>brooklyn-rest-server</artifactId>
+        <version>${project.version}</version>
+    </dependency> -->
+
     <dependency>
       <groupId>org.apache.karaf.features</groupId>
       <artifactId>framework</artifactId>
@@ -115,7 +121,7 @@
             <bootFeature>system</bootFeature>
             <bootFeature>wrap</bootFeature>
             <!-- brooklyn features -->
-            <bootFeature>brooklyn-jsgui</bootFeature>
+            <!-- <bootFeature>brooklyn-jsgui</bootFeature> -->
             <bootFeature>brooklyn-rest-server</bootFeature>
           </bootFeatures>
         </configuration>
