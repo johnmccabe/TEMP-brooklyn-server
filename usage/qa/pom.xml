@@ -36,7 +36,7 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.brooklyn</groupId>
-            <artifactId>brooklyn-all</artifactId>
+            <artifactId>brooklyn-server-all</artifactId>
             <version>${project.version}</version>
         </dependency>
 

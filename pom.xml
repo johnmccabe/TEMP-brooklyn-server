@@ -28,13 +28,13 @@
     </parent>
 
     <groupId>org.apache.brooklyn</groupId>
-    <artifactId>brooklyn</artifactId>
+    <artifactId>brooklyn-server</artifactId>
     <version>0.9.1-SNAPSHOT</version>  <!-- BROOKLYN_VERSION -->
     <packaging>pom</packaging>
 
-    <name>Brooklyn Root</name>
+    <name>Brooklyn Server Root</name>
     <description>
-        Brooklyn project root, serving as the ancestor POM for all projects --
+        Brooklyn Server project root, serving as the ancestor POM for all projects --
         declaring versions, profiles, and the modules to build
     </description>
     <url>https://brooklyn.incubator.apache.org/</url>
@@ -197,16 +197,13 @@
 
     <modules>
         <module>parent</module>
-        <module>usage/downstream-parent</module>
 
         <module>api</module>
         <module>camp</module>
         <module>core</module>
-        <module>examples</module>
         <module>policy</module>
 
         <module>locations/jclouds</module>
-        <module>karaf</module>
 
         <!-- module>sandbox/cassandra-multicloud-snitch</module -->
         <!-- module>sandbox/database</module -->
@@ -218,27 +215,17 @@
         <!-- module>sandbox/web-acceptance</module -->
 
         <module>software/base</module>
-        <module>software/network</module>
-        <module>software/osgi</module>
-        <module>software/webapp</module>
-        <module>software/messaging</module>
-        <module>software/nosql</module>
-        <module>software/database</module>
-        <module>software/monitoring</module>
         <module>software/winrm</module>
 
         <module>storage/hazelcast</module>
 
-        <module>usage/all</module>
-        <module>usage/archetypes/quickstart</module>
+        <module>usage/server-all</module>
         <module>usage/camp</module>
         <module>usage/cli</module>
-        <module>usage/dist</module>
-        <module>usage/jsgui</module>
         <module>usage/launcher</module>
         <module>usage/logback-includes</module>
         <module>usage/logback-xml</module>
-        <module>usage/qa</module>
+        <!-- <module>usage/qa</module> -->
         <module>usage/rest-api</module>
         <module>usage/rest-client</module>
         <module>usage/rest-server</module>
@@ -252,6 +239,8 @@
         <module>utils/test-support</module>
         <module>utils/rest-swagger</module>
 
+        <module>karaf</module>
+        
         <module>utils/rt-osgi</module>
         <module>utils/rt-felix</module>
 
